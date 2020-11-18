@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+    SPDX-License-Identifier: EUPL-1.2
+    Copyright Regione Piemonte - 2020
+ -->
+
+<project name="sicee.siceegwsape-buildCXFAPETestClientLibs" basedir=".." default="create-client-cxf-libs-TEST">
+
+	<property name="cxfsrc" value="build/cxf/src" />
+	<property name="cxfclasses" value="build/cxf/classes" />
+
+	<path id="cxf.classpath">
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="create-client-cxf-libs-TEST">
+		
+		<copy todir="conf/xsd/tst-rp-01">
+					<fileset dir="conf/wsdl/tst-rp-01">
+						<include name="*.wsdl"/>
+					</fileset>
+		</copy>
+		
+		
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${cxfsrc}" includes="**/*.*" />
+			<fileset dir="${cxfclasses}" includes="**/*.*" />
+		</delete>
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+			<arg value="-client" />
+			<arg value="-d" />
+			<arg value="${cxfsrc}" />
+			<arg value="conf/xsd/tst-coto-01/CaricamentoAPE.wsdl" />
+			<classpath>
+				<path refid="cxf.classpath" />
+			</classpath>
+		</java>
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+						<arg value="-client" />
+						<arg value="-d" />
+						<arg value="${cxfsrc}" />
+						<arg value="conf/xsd/tst-rp-01/CancellaAPE.wsdl" />
+						<classpath>
+							<path refid="cxf.classpath" />
+						</classpath>
+		</java>			
+		<mkdir dir="${cxfclasses}" />
+		<javac srcdir="${cxfsrc}" destdir="${cxfclasses}" optimize="false" debug="true" debuglevel="vars,lines,source" compiler="modern" source="1.5" target="1.6" fork="false">
+			<classpath refid="cxf.classpath" />
+		</javac>
+		<jar jarfile="conf/lib-tmp/wsapetest-client-cxf-1.0.0.jar" basedir="${cxfclasses}" includes="**/*.*" />
+		<copy file="conf/lib-tmp/wsapetest-client-cxf-1.0.0.jar" todir="lib" />
+		
+		
+		<delete includeemptydirs="true" failonerror="false">
+					<fileset dir="conf/xsd-test" includes="*.wsdl" />
+	    </delete>
+		
+	</target>
+
+</project>

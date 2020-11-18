@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+    SPDX-License-Identifier: EUPL-1.2
+    Copyright Regione Piemonte - 2020
+ -->
+
+<project name="sicee.siceegwsape-buildCXFAPEClientLibs" basedir=".." default="create-client-cxf-libs">
+
+	<property name="cxfsrc" value="build/cxf/src" />
+	<property name="cxfclasses" value="build/cxf/classes" />
+
+	<path id="cxf.classpath">
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="create-client-cxf-libs">
+		
+		<copy todir="conf/xsd/prod-rp-01">
+					<fileset dir="conf/wsdl/prod-rp-01">
+						<include name="*.wsdl"/>
+					</fileset>
+		</copy>
+		
+		
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${cxfsrc}" includes="**/*.*" />
+			<fileset dir="${cxfclasses}" includes="**/*.*" />
+		</delete>
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+			<arg value="-client" />
+			<arg value="-d" />
+			<arg value="${cxfsrc}" />
+			<arg value="conf/xsd/prod-rp-01/CaricamentoAPE.wsdl" />
+			<classpath>
+				<path refid="cxf.classpath" />
+			</classpath>
+		</java>
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">	
+								<arg value="-client" />
+								<arg value="-d" />
+								<arg value="${cxfsrc}" />
+								<arg value="conf/xsd/prod-rp-01/CancellaAPE.wsdl" />
+								<classpath>
+									<path refid="cxf.classpath" />
+								</classpath>
+		</java>		
+		<mkdir dir="${cxfclasses}" />
+		<javac srcdir="${cxfsrc}" destdir="${cxfclasses}" optimize="false" debug="true" debuglevel="vars,lines,source" compiler="modern" source="1.5" target="1.6" fork="false">
+			<classpath refid="cxf.classpath" />
+		</javac>
+		<jar jarfile="dist/wsape-client-cxf-1.0.0.jar" basedir="${cxfclasses}" includes="**/*.*" />
+			
+		
+		<delete includeemptydirs="true" failonerror="false">
+					<fileset dir="conf/xsd" includes="*.wsdl" />
+	    </delete>
+		
+	</target>
+
+</project>

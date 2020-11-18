@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+    SPDX-License-Identifier: EUPL-1.2
+    Copyright Regione Piemonte - 2020
+ -->
+
+<project name="sicee.siceegwape-buildJAXB" basedir=".." default="doall">
+
+	<property name="buidfolder" value="${basedir}/build" />
+	<property name="tempfolder" value="${buidfolder}/xsd" />
+	<property name="tempsrc_jaxb" value="${tempfolder}/src" />
+	<property name="srcdir_name" value="src" />
+	<property name="tempclasses_jaxb" value="${tempfolder}/classes" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="dist.dir" value="${basedir}/dist" />
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/jaxb*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath refid="classpath" />
+	</taskdef>
+
+	<target name="buildtempdir">
+		<mkdir dir="${tempfolder}" />
+		<mkdir dir="${tempsrc_jaxb}" />
+		<mkdir dir="${tempclasses_jaxb}" />
+	</target>
+
+	<target name="buildsrc" depends="buildtempdir" description="create Java source files" >
+		<echo message="Compiling the schema..." />
+		<xjc binding="conf/xsd/${target}/binding.xml" destdir="${tempsrc_jaxb}">
+					<schema dir="conf/xsd/${target}" includes="*.xsd" />
+		</xjc>
+	
+	</target>
+	
+	
+	 
+
+	<target name="compilejaxpgeneratedfiles">
+		<javac srcdir="${tempsrc_jaxb}" destdir="${tempclasses_jaxb}" optimize="false" debug="true" debuglevel="vars,lines,source" compiler="modern" source="1.7" fork="false">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="delete_jaxb_srcfiles">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${tempsrc_jaxb}" includes="**/*.*" />
+			<fileset dir="${tempsrc_jaxb}" includes="**/impl" />
+		</delete>
+	</target>
+
+	<target name="delete_jaxb_classesfiles">
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${tempclasses_jaxb}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="makejar">
+		<jar jarfile="conf/lib-tmp/ape-jaxb-1.0.0.jar" basedir="${tempclasses_jaxb}" includes="**/*.*" />
+		<copy file="conf/lib-tmp/ape-jaxb-1.0.0.jar" todir="${lib.dir}" />
+	</target>
+
+	<target name="doall">
+		<antcall target="delete_jaxb_srcfiles" />
+		<antcall target="delete_jaxb_classesfiles" />
+		<antcall target="buildsrc" />
+		<antcall target="compilejaxpgeneratedfiles" />
+		<antcall target="makejar" />
+	</target>
+</project>

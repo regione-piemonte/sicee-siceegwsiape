@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-License-Identifier: EUPL-1.2
+    Copyright Regione Piemonte - 2020
+ -->
+
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" jaxb:version="2.0">
+    <jaxb:bindings schemaLocation="APEx2015_v12.xsd" node="/xsd:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.csi.sicee.siceegwsiape.jaxb.lib" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

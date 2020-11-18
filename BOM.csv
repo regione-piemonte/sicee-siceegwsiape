@@ -1,0 +1,39 @@
+name@version *,license *,copyrights *,end-of-support,dependencies,language,repository,email,URL
+ape-jaxb-1.0.0.jar,Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta),-,-,-,Java,-,-,-
+bcprov-jdk15on-1.51.jar,MIT,The Bouncy Castle ,-,-,Java,-,-,-
+commons-codec-1.10.jar,Apache-2.0,-,-,-,Java,-,-,-
+commons-lang-2.6.jar,Apache-2.0,-,-,-,Java,-,-,-
+commons-logging-1.1.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+cryptacular-1.0.jar,Apache-2.0:;LGPL-3.0,-,-,-,Java,-,-,-
+cxf-core-3.1.6.jar,Apache-2.0,-,-,-,Java,-,-,-
+ehcache-2.10.1.jar,Apache-2.0,-,-,-,Java,-,-,src/assemble/EHCACHE-CORE-LICENSE.txt
+geronimo-javamail_1.4_spec-1.7.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+gson-2.2.4.jar,Apache-2.0,-,-,-,Java,-,-,-
+guava-18.0.jar,Apache-2.0,-,-,-,Java,-,-,-
+hibernate-entitymanager-4.3.2.Final.jar,LGPL-2.1,-,-,-,Java,-,-,http://www.gnu.org/licenses/lgpl-2.1.html
+hibernate-jpa-2.1-api-1.0.0.Final.jar,EPL-1.0; EDL-1.0,-,-,-,Java,-,-,-
+hyperjaxb3-ejb-runtime-0.6.0.jar,BSD-Style License,Aleksei Valikov,-,-,Java,-,-,http://www.opensource.org/licenses/bsd-license.php
+jasypt-1.9.2.jar,Apache-2.0,-,-,-,Java,-,-,-
+java-support-7.1.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+jaxb2-basics-runtime-0.8.2.jar,BSD,-,-,-,Java,-,-,http://confluence.highsource.org/display/J2B/License
+jboss-annotations-api_1.1_spec-1.0.1.Final-redhat-3.jar,CDDL; GPL-2.0,-,-,-,Java,-,-,https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+jboss-ejb-api_3.1_spec-1.0.2.Final-redhat-2.jar,CDDL-1.0; GPL-2.0 w/ CPE,-,-,-,Java,-,-,http://repository.jboss.org/licenses/cddl.txt; http://repository.jboss.org/licenses/gpl-2.0-ce.txt
+jboss-ejb3-ext-api-2.1.0.redhat-1.jar,CC0,-,-,-,Java,-,-,-
+jboss-interceptors-api_1.1_spec-1.0.1.Final-redhat-2.jar,CDDL-1.0; GPL-2.0 w/ CPE,-,-,-,Java,-,-,http://repository.jboss.org/licenses/cddl.txt; http://repository.jboss.org/licenses/gpl-2.0-ce.txt
+joda-time-2.7.jar,Apache-2.0,-,-,-,Java,-,-,-
+junit-4.7.jar,CPL-1.0,-,-,-,Java,-,-,-
+log4j-1.2.14.jar,Apache-2.0,-,-,-,Java,-,-,-
+log4j-core-2.4.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+neethi-3.0.3.jar,Apache-2.0,-,-,-,Java,-,-,-
+opensaml-core-3.1.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+slf4j-api-1.6.6.jar,MIT,-,-,-,Java,-,-,-
+slf4j-simple-1.6.6.jar,MIT,-,-,-,Java,-,-,-
+stax2-api-3.1.4.jar,BSD-2-Clause,-,-,-,Java,-,-,-
+util-perf-1.0.0.jar,Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta),CSI-Piemonte,-,-,Java,-,-,-
+woodstox-core-asl-4.4.1.jar,Apache-2.0,-,-,-,Java,-,-,-
+wsape-12.0-classes.jar,Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta),-,-,-,Java,-,-,-
+wsdl4j-1.6.3.jar,CPL-1.0,-,-,-,Java,-,-,-
+wss4j-policy-2.1.5.jar,Apache-2.0,-,-,-,Java,-,-,-
+xml-resolver-1.2.jar,Apache-2.0,-,-,-,Java,-,-,-
+xmlschema-core-2.1.0.jar,Apache-2.0,-,-,-,Java,-,-,-
+xmlsec-2.0.6.jar,Apache-2.0,-,-,-,Java,-,-,-

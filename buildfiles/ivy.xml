@@ -1,0 +1,59 @@
+<!--
+    SPDX-License-Identifier: EUPL-1.2
+    Copyright Regione Piemonte - 2020
+ -->
+<ivy-module version="1.0">
+
+	<info organisation="csipiemonte" module="siceegwsiape" />
+
+	<dependencies>
+
+
+		<!-- dev (per generazione JAXB & CXF) -->
+		<!--<dependency org="apache" name="neethi" rev="3.0.2" /> -->
+		<!--<dependency org="sun" name="jaxb" rev="2.2.6" /> -->
+		<dependency org="others" name="wsdl4j" rev="1.6.3" />
+		<!--<dependency org="apache" name="xmlschema-core" rev="2.0.3" />-->
+		<dependency org="apache" name="geronimo-javamail" rev="1.4">
+			<artifact  name="geronimo-javamail_1.4_spec-1.7.1" type="jar" />
+		</dependency>		
+		<dependency org="others" name="jboss" rev="eap-6.2">
+			<artifact name="jboss-interceptors-api_1.1_spec-1.0.1.Final-redhat-2" type="jar" />
+			<artifact name="jboss-ejb-api_3.1_spec-1.0.2.Final-redhat-2" type="jar" />
+			<exclude name="hibernate-jpa-2.0-api-1.0.1.Final-redhat-2" />
+			<exclude name="javax.inject-1.redhat-4" />
+			<exclude name="jboss-jaxrpc-api_1.1_spec-1.0.1.Final-redhat-3" />
+			<exclude name="jboss-jaxrs-api_1.1_spec-1.0.1.Final-redhat-2" />
+			<exclude name="jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-1" />
+			<exclude name="mail-1.4.5-redhat-1" /> 
+		</dependency>
+
+		<!-- test -->
+		<dependency org="apache" name="log4j" rev="1.2.14" />
+		<dependency rev="4.7" name="junit" org="others" />
+		
+		<dependency org="others" name="hibernate-jpa-2.1-api" rev="1.0.0.Final" />
+
+
+		<!-- prod -->
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.0" />
+		<dependency org="apache" name="commons-lang" rev="2.6"/>
+    	<dependency org="google" name="gson" rev="2.2.4"/>
+       	
+
+	<dependency org="redhat" name="jboss-annotations-api_1.1_spec" rev="1.0.1.Final-redhat-3">
+		<artifact name="jboss-annotations-api_1.1_spec-1.0.1.Final-redhat-3" type="jar" />
+	</dependency>
+	<dependency org="redhat" name="jboss-ejb3-ext-api" rev="2.1.0.redhat-1">
+		<artifact name="jboss-ejb3-ext-api-2.1.0.redhat-1" type="jar" />
+	</dependency>
+
+	
+	<dependency org="others" name="hibernate" rev="4.3.2.Final" >
+			<artifact  name="hibernate-entitymanager-4.3.2.Final" type="jar" />
+	</dependency>
+	
+    <!--conflict manager="all"/-->		
+	</dependencies>
+
+</ivy-module>

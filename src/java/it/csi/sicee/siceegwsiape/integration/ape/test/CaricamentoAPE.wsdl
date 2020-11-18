@@ -1,0 +1,741 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.enea.it/siape" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CaricamentoAPEService" targetNamespace="http://www.enea.it/siape">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.enea.it/siape" elementFormDefault="qualified" targetNamespace="http://www.enea.it/siape/types" version="1.0">
+
+  <xs:import namespace="http://www.enea.it/siape"/>
+
+  <xs:element name="caricaAPE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="requestType">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element form="unqualified" name="info" type="ns1:typeInfo"/>
+              <xs:element form="unqualified" name="datiAttestato" type="ns1:typeDatiAttestato"/>
+              <xs:element form="unqualified" name="datiGenerali" type="ns1:typeDatiGenerali"/>
+              <xs:element form="unqualified" name="prestazioneGlobale" type="ns1:typePrestazioneGlobale"/>
+              <xs:element form="unqualified" name="prestazioneImpianti" type="ns1:typePrestazioneImpianti"/>
+              <xs:element form="unqualified" name="raccomandazioni" type="ns1:typeRaccomandazioni"/>
+              <xs:element form="unqualified" name="datiEnergetici" type="ns1:typeDatiEnergetici"/>
+              <xs:element form="unqualified" name="datiFabbricato" type="ns1:typeDatiFabbricato"/>
+              <xs:element form="unqualified" name="datiImpianti" type="ns1:typeDatiImpianti"/>
+              <xs:element form="unqualified" name="informazioniMiglioramento" type="xs:string"/>
+              <xs:element form="unqualified" name="soggettoCertificatore" type="ns1:typeSoggettoCertificatore"/>
+              <xs:element default="1" form="unqualified" name="sopralluogoObbligatorio" type="xs:boolean"/>
+              <xs:element form="unqualified" name="softwareUtilizzato" type="ns1:typeSoftwareUtilizzato"/>
+              <xs:element form="unqualified" name="dataEmissione" type="xs:date"/>
+              <xs:element form="unqualified" name="datiExtra" type="ns1:typeDatiExtra"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="caricaAPEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="responseType">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element form="unqualified" name="mCodice" type="xs:int"/>
+              <xs:element form="unqualified" name="mMessaggio" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="caricaLottoAPE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="requestType">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element form="unqualified" name="info" type="ns1:typeInfo"/>
+              <xs:element form="unqualified" name="datiAttestato" type="ns1:typeDatiAttestato"/>
+              <xs:element form="unqualified" name="datiGenerali" type="ns1:typeDatiGenerali"/>
+              <xs:element form="unqualified" name="prestazioneGlobale" type="ns1:typePrestazioneGlobale"/>
+              <xs:element form="unqualified" name="prestazioneImpianti" type="ns1:typePrestazioneImpianti"/>
+              <xs:element form="unqualified" name="raccomandazioni" type="ns1:typeRaccomandazioni"/>
+              <xs:element form="unqualified" name="datiEnergetici" type="ns1:typeDatiEnergetici"/>
+              <xs:element form="unqualified" name="datiFabbricato" type="ns1:typeDatiFabbricato"/>
+              <xs:element form="unqualified" name="datiImpianti" type="ns1:typeDatiImpianti"/>
+              <xs:element form="unqualified" name="informazioniMiglioramento" type="xs:string"/>
+              <xs:element form="unqualified" name="soggettoCertificatore" type="ns1:typeSoggettoCertificatore"/>
+              <xs:element default="1" form="unqualified" name="sopralluogoObbligatorio" type="xs:boolean"/>
+              <xs:element form="unqualified" name="softwareUtilizzato" type="ns1:typeSoftwareUtilizzato"/>
+              <xs:element form="unqualified" name="dataEmissione" type="xs:date"/>
+              <xs:element form="unqualified" name="datiExtra" type="ns1:typeDatiExtra"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="caricaLottoAPEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="responseType">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element form="unqualified" name="mCodice" type="xs:int"/>
+              <xs:element form="unqualified" name="mMessaggio" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.enea.it/siape" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.enea.it/siape">
+  <xs:import namespace="http://www.enea.it/siape"/>
+  <xs:element name="ape2015">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="info" type="tns:typeInfo"/>
+        <xs:element name="datiAttestato" type="tns:typeDatiAttestato"/>
+        <xs:element name="datiGenerali" type="tns:typeDatiGenerali"/>
+        <xs:element name="prestazioneGlobale" type="tns:typePrestazioneGlobale"/>
+        <xs:element name="prestazioneImpianti" type="tns:typePrestazioneImpianti"/>
+        <xs:element name="raccomandazioni" type="tns:typeRaccomandazioni"/>
+        <xs:element name="datiEnergetici" type="tns:typeDatiEnergetici"/>
+        <xs:element name="datiFabbricato" type="tns:typeDatiFabbricato"/>
+        <xs:element name="datiImpianti" type="tns:typeDatiImpianti"/>
+        <xs:element name="informazioniMiglioramento" type="xs:string"/>
+        <xs:element name="soggettoCertificatore" type="tns:typeSoggettoCertificatore"/>
+        <xs:element default="1" name="sopralluogoObbligatorio" type="xs:boolean"/>
+        <xs:element name="softwareUtilizzato" type="tns:typeSoftwareUtilizzato"/>
+        <xs:element name="dataEmissione" type="xs:date"/>
+        <xs:element name="datiExtra" type="tns:typeDatiExtra"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="caricaAPE" type="tns:caricaAPE"/>
+  <xs:element name="caricaAPEResponse" type="tns:caricaAPEResponse"/>
+  <xs:element name="caricaLottoAPE" type="tns:caricaLottoAPE"/>
+  <xs:element name="caricaLottoAPEResponse" type="tns:caricaLottoAPEResponse"/>
+  <xs:element name="recuperaDimensioneMassimaLottoAPE" type="tns:recuperaDimensioneMassimaLottoAPE"/>
+  <xs:element name="recuperaDimensioneMassimaLottoAPEResponse" type="tns:recuperaDimensioneMassimaLottoAPEResponse"/>
+  <xs:element name="wsAPEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mCodice" type="xs:int"/>
+        <xs:element name="mMessaggio" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="caricaLottoAPE">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="lottoAPE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="info" type="tns:typeInfo"/>
+            <xs:element name="datiAttestato" type="tns:typeDatiAttestato"/>
+            <xs:element name="datiGenerali" type="tns:typeDatiGenerali"/>
+            <xs:element name="prestazioneGlobale" type="tns:typePrestazioneGlobale"/>
+            <xs:element name="prestazioneImpianti" type="tns:typePrestazioneImpianti"/>
+            <xs:element name="raccomandazioni" type="tns:typeRaccomandazioni"/>
+            <xs:element name="datiEnergetici" type="tns:typeDatiEnergetici"/>
+            <xs:element name="datiFabbricato" type="tns:typeDatiFabbricato"/>
+            <xs:element name="datiImpianti" type="tns:typeDatiImpianti"/>
+            <xs:element name="informazioniMiglioramento" type="xs:string"/>
+            <xs:element name="soggettoCertificatore" type="tns:typeSoggettoCertificatore"/>
+            <xs:element default="1" name="sopralluogoObbligatorio" type="xs:boolean"/>
+            <xs:element name="softwareUtilizzato" type="tns:typeSoftwareUtilizzato"/>
+            <xs:element name="dataEmissione" type="xs:date"/>
+            <xs:element name="datiExtra" type="tns:typeDatiExtra"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeInfo">
+    <xs:sequence>
+      <xs:element name="copyright" type="xs:string"/>
+      <xs:element name="versione" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiAttestato">
+    <xs:sequence>
+      <xs:element name="codiceISTATRegione" type="xs:string"/>
+      <xs:element name="codiceIdentificativo" type="xs:string"/>
+      <xs:element name="dataScadenza" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiGenerali">
+    <xs:sequence>
+      <xs:element name="destinazioneUso" type="xs:short"/>
+      <xs:element name="classificazioneDPR412" type="xs:short"/>
+      <xs:element name="oggettoAttestato" type="xs:short"/>
+      <xs:element name="numeroUnitaImmobiliari" type="xs:long"/>
+      <xs:element name="motivazione" type="xs:short"/>
+      <xs:element name="altraMotivazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="descrizioneAltraMotivazione" type="xs:string"/>
+      <xs:element name="datiIdentificativi">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fotoEdificio">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="immagine" type="xs:base64Binary"/>
+                  <xs:element name="formatoImmagine" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="codiceISTAT" type="xs:string"/>
+            <xs:element name="indirizzo" type="xs:string"/>
+            <xs:element name="piano" type="xs:string"/>
+            <xs:element name="interno" type="xs:string"/>
+            <xs:element name="LatitudineGIS" type="xs:decimal"/>
+            <xs:element name="LongitudineGIS" type="xs:decimal"/>
+            <xs:element name="zonaClimatica" type="xs:string"/>
+            <xs:element name="annoCostruzione" type="xs:long"/>
+            <xs:element name="superficieUtileRiscaldata" type="xs:decimal"/>
+            <xs:element name="superficieUtileRaffrescata" type="xs:decimal"/>
+            <xs:element name="volumeLordoRiscaldato" type="xs:decimal"/>
+            <xs:element name="volumeLordoRaffrescato" type="xs:decimal"/>
+            <xs:element name="catasto">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="datiCatastali" type="tns:typeDatiCatastali"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviziEnergeticiPresenti">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element default="1" name="climatizzazioneInvernale" type="xs:boolean"/>
+            <xs:element name="climatizzazioneEstiva" type="xs:boolean"/>
+            <xs:element name="ventilazioneMeccanica" type="xs:boolean"/>
+            <xs:element name="produzioneAcquaCaldaSanitaria" type="xs:boolean"/>
+            <xs:element name="illuminazione" type="xs:boolean"/>
+            <xs:element name="trasportoPersoneCose" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiCatastali">
+    <xs:sequence>
+      <xs:element name="codiceCatastale" type="xs:string"/>
+      <xs:element name="comuneCatastale" type="xs:string"/>
+      <xs:element default="1" name="tipoCatasto" type="xs:short"/>
+      <xs:element minOccurs="0" name="sezione" type="xs:string"/>
+      <xs:element name="foglio" type="xs:string"/>
+      <xs:element name="particella" type="xs:string"/>
+      <xs:element minOccurs="0" name="subalterni">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+              <xs:element name="subDA" type="xs:string"/>
+              <xs:element name="subA" type="xs:string"/>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="altriSubalterni" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeImpianto">
+    <xs:sequence>
+      <xs:element name="tipoImpianto" type="xs:short"/>
+      <xs:element minOccurs="0" name="descrizioneImpianto" type="xs:string"/>
+      <xs:element name="annoInstallazione" type="xs:long"/>
+      <xs:element name="codiceCatastoRegionaleImpiantiTermici" type="xs:string"/>
+      <xs:element name="vettoriEnergeticiUtilizzati">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element default="0" maxOccurs="unbounded" name="vettore" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="potenzaNominale" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiImpianti">
+    <xs:sequence>
+      <xs:element name="climatizzazioneInvernale">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="impianto" nillable="true" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="impiantoSimulato" type="xs:string"/>
+            <xs:element name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="climatizzazioneEstiva">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+            <xs:element name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="produzioneACS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="impianto" nillable="true" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="impiantoSimulato" type="xs:string"/>
+            <xs:element name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="impiantiCombinati">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="efficienza" type="xs:decimal"/>
+            <xs:element minOccurs="0" name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="produzioneFontiRinnovabili">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="ventilazioneMeccanica">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="illuminazione">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="trasportoPersoneCose">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="impianto" type="tns:typeImpianto"/>
+            <xs:element minOccurs="0" name="efficienza" type="xs:decimal"/>
+            <xs:element name="prestazione" type="tns:typePrestazione"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typePrestazione">
+    <xs:sequence>
+      <xs:element name="epren" type="xs:decimal"/>
+      <xs:element name="epnren" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typePrestazioneGlobale">
+    <xs:sequence>
+      <xs:element name="prestazioneEnergeticaFabbricato">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="inverno" type="xs:short"/>
+            <xs:element name="estate" type="xs:short"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="prestazioneEnergeticaGlobale">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="edificioEnergiaQuasiZero" type="xs:boolean"/>
+            <xs:element name="classificazione" type="tns:typeClasseEnergetica"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="riferimenti">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="classificazioneNuovi" type="tns:typeClasseEnergetica"/>
+            <xs:element minOccurs="0" name="classificazioneEsistenti" type="tns:typeClasseEnergetica"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeClasseEnergetica">
+    <xs:sequence>
+      <xs:element name="classeEnergetica" type="xs:string"/>
+      <xs:element name="epglnren" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typePrestazioneImpianti">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="energiaElettricaRete" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="gasNaturale" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="gpl" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="carbone" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="gasolio" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="olioCombustibile" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="biomasseSolide" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="biomasseLiquide" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="biomasseGassose" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="solareFotovoltaico" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="solareTermico" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="eolico" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="teleriscaldamento" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="teleraffrescamento" type="tns:typeConsumoImpianto"/>
+      <xs:element minOccurs="0" name="altro" type="tns:typeConsumoImpiantoAltro"/>
+      <xs:element name="epglnren" type="xs:decimal"/>
+      <xs:element name="epglren" type="xs:decimal"/>
+      <xs:element name="emissioniCO2" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeConsumoImpianto">
+    <xs:sequence>
+      <xs:element name="consumoAnnuo" type="xs:decimal"/>
+      <xs:element name="consumoAnnuoUM" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeConsumoImpiantoAltro">
+    <xs:sequence>
+      <xs:element name="consumoAnnuo" type="xs:decimal"/>
+      <xs:element name="consumoAnnuoUM" type="xs:short"/>
+      <xs:element name="descrizioneFonteEnergetica" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeRaccomandazioni">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="interventoRaccomandato" type="tns:typeInterventoRaccomandato"/>
+      <xs:element name="classificazione" type="tns:typeClasseEnergetica"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeInterventoRaccomandato">
+    <xs:sequence>
+      <xs:element name="codice" type="xs:short"/>
+      <xs:element name="tipoInterventoRaccomandato" type="xs:string"/>
+      <xs:element default="0" name="ristrutturazioneImportante" type="xs:boolean"/>
+      <xs:element default="1" name="tempoRitornoInvestimento" type="xs:decimal"/>
+      <xs:element name="classificazioneRaggiungibile" type="tns:typeClasseEnergetica"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiEnergetici">
+    <xs:sequence>
+      <xs:element default="0" name="energiaEsportata" type="xs:decimal"/>
+      <xs:element default="0" name="vettoreEnergetico" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiFabbricato">
+    <xs:sequence>
+      <xs:element name="volumeRiscaldato" type="xs:decimal"/>
+      <xs:element name="superficieDisperdente" type="xs:decimal"/>
+      <xs:element name="rapportoSV" type="xs:decimal"/>
+      <xs:element name="ephnd" type="xs:decimal"/>
+      <xs:element name="rapportoAsolAsupUtile" type="xs:decimal"/>
+      <xs:element name="yie" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeSoggettoCertificatore">
+    <xs:sequence>
+      <xs:element name="tipoSoggettoCertificatore" type="xs:short"/>
+      <xs:element name="nome" type="xs:string"/>
+      <xs:element name="cognome" type="xs:string"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element name="indirizzo" type="xs:string"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="telefono" type="xs:string"/>
+      <xs:element name="titolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="ordineIscrizione" type="xs:string"/>
+      <xs:element default="0" name="dichiarazioneIndipendenza" type="xs:short"/>
+      <xs:element minOccurs="0" name="informazioniAggiuntive" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeSoftwareUtilizzato">
+    <xs:sequence>
+      <xs:element default="1" name="requisitiRispondenzaRisultati" type="xs:boolean"/>
+      <xs:element default="0" name="calcoloSemplificato" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="typeDatiExtra">
+    <xs:sequence>
+      <xs:element name="comune" type="xs:string"/>
+      <xs:element name="CAP" type="xs:string"/>
+      <xs:element name="provincia" type="xs:string"/>
+      <xs:element name="regione" type="xs:string"/>
+      <xs:element default="1" name="gradiGiorno" type="xs:long"/>
+      <xs:element name="dataSopralluogo" type="xs:date"/>
+      <xs:element name="softwareUtilizzato" type="xs:string"/>
+      <xs:element name="numeroCertificatoSoftware" type="xs:long"/>
+      <xs:element name="ephndLim" type="xs:decimal"/>
+      <xs:element name="EPglnrenRifStandard" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="idCatastale" type="xs:string"/>
+      <xs:element name="proprietaEdificio" type="xs:short"/>
+      <xs:element minOccurs="0" name="codiceEdificioScolastico" type="xs:string"/>
+      <xs:element name="tipologiaEdilizia" type="xs:short"/>
+      <xs:element name="tipologiaCostruttiva" type="xs:short"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caricaLottoAPEResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mCodice" type="xs:int"/>
+            <xs:element name="mMessaggio" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="siapeFault">
+    <xs:sequence>
+      <xs:element name="faultCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="faultString" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recuperaDimensioneMassimaLottoAPE">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="recuperaDimensioneMassimaLottoAPEResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caricaAPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ape">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="info" type="tns:typeInfo"/>
+            <xs:element name="datiAttestato" type="tns:typeDatiAttestato"/>
+            <xs:element name="datiGenerali" type="tns:typeDatiGenerali"/>
+            <xs:element name="prestazioneGlobale" type="tns:typePrestazioneGlobale"/>
+            <xs:element name="prestazioneImpianti" type="tns:typePrestazioneImpianti"/>
+            <xs:element name="raccomandazioni" type="tns:typeRaccomandazioni"/>
+            <xs:element name="datiEnergetici" type="tns:typeDatiEnergetici"/>
+            <xs:element name="datiFabbricato" type="tns:typeDatiFabbricato"/>
+            <xs:element name="datiImpianti" type="tns:typeDatiImpianti"/>
+            <xs:element name="informazioniMiglioramento" type="xs:string"/>
+            <xs:element name="soggettoCertificatore" type="tns:typeSoggettoCertificatore"/>
+            <xs:element default="1" name="sopralluogoObbligatorio" type="xs:boolean"/>
+            <xs:element name="softwareUtilizzato" type="tns:typeSoftwareUtilizzato"/>
+            <xs:element name="dataEmissione" type="xs:date"/>
+            <xs:element name="datiExtra" type="tns:typeDatiExtra"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caricaAPEResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mCodice" type="xs:int"/>
+            <xs:element name="mMessaggio" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SiapeException" nillable="true" type="tns:siapeFault"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="recuperaDimensioneMassimaLottoAPE">
+    <wsdl:part element="tns:recuperaDimensioneMassimaLottoAPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="caricaAPEResponse">
+    <wsdl:part element="tns:caricaAPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SiapeException">
+    <wsdl:part element="tns:SiapeException" name="SiapeException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="caricaLottoAPEResponse">
+    <wsdl:part element="tns:caricaLottoAPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="caricaAPE">
+    <wsdl:part element="tns:caricaAPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="recuperaDimensioneMassimaLottoAPEResponse">
+    <wsdl:part element="tns:recuperaDimensioneMassimaLottoAPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="caricaLottoAPE">
+    <wsdl:part element="tns:caricaLottoAPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CaricamentoAPE">
+    <wsdl:operation name="caricaLottoAPE">
+      <wsdl:input message="tns:caricaLottoAPE" name="caricaLottoAPE">
+    </wsdl:input>
+      <wsdl:output message="tns:caricaLottoAPEResponse" name="caricaLottoAPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SiapeException" name="SiapeException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="recuperaDimensioneMassimaLottoAPE">
+      <wsdl:input message="tns:recuperaDimensioneMassimaLottoAPE" name="recuperaDimensioneMassimaLottoAPE">
+    </wsdl:input>
+      <wsdl:output message="tns:recuperaDimensioneMassimaLottoAPEResponse" name="recuperaDimensioneMassimaLottoAPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SiapeException" name="SiapeException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="caricaAPE">
+      <wsdl:input message="tns:caricaAPE" name="caricaAPE">
+    </wsdl:input>
+      <wsdl:output message="tns:caricaAPEResponse" name="caricaAPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SiapeException" name="SiapeException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CaricamentoAPEServiceSoapBinding" type="tns:CaricamentoAPE">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#SiapeBindingPolicy"/>
+    <wsdl:operation name="caricaLottoAPE">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="caricaLottoAPE">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Input_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="caricaLottoAPEResponse">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Output_Policy"/>
+      </wsdl:output>
+      <wsdl:fault name="SiapeException">
+        <soap12:fault name="SiapeException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="recuperaDimensioneMassimaLottoAPE">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="recuperaDimensioneMassimaLottoAPE">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Input_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="recuperaDimensioneMassimaLottoAPEResponse">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Output_Policy"/>
+      </wsdl:output>
+      <wsdl:fault name="SiapeException">
+        <soap12:fault name="SiapeException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="caricaAPE">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="caricaAPE">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Input_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="caricaAPEResponse">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Output_Policy"/>
+      </wsdl:output>
+      <wsdl:fault name="SiapeException">
+        <soap12:fault name="SiapeException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CaricamentoAPEService">
+    <wsdl:port binding="tns:CaricamentoAPEServiceSoapBinding" name="CaricamentoAPEPort">
+      <soap12:address location="https://pre-siape-services.enea.it:8443/wsape/services/CaricamentoAPE"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SiapeBindingPolicy">
+	<sp:SignedEncryptedSupportingTokens>
+		<wsp:Policy>
+			<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+				<wsp:Policy>
+					<sp:WssUsernameToken10/>
+				</wsp:Policy>
+			</sp:UsernameToken>
+		</wsp:Policy>
+	</sp:SignedEncryptedSupportingTokens>
+	<sp:SymmetricBinding>
+		<wsp:Policy>
+			<sp:AlgorithmSuite>
+				<wsp:Policy>
+					<sp:Basic128/>
+				</wsp:Policy>
+			</sp:AlgorithmSuite>
+			<sp:IncludeTimestamp/>
+			<sp:Layout>
+				<wsp:Policy>
+					<sp:Strict/>
+				</wsp:Policy>
+			</sp:Layout>
+			<sp:OnlySignEntireHeadersAndBody/>
+			<sp:ProtectionToken>
+				<wsp:Policy>
+					<sp:X509Token sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never">
+						<wsp:Policy>
+							<sp:RequireIssuerSerialReference/>
+							<sp:WssX509V3Token10/>
+						</wsp:Policy>
+					</sp:X509Token>
+				</wsp:Policy>
+			</sp:ProtectionToken>
+		</wsp:Policy>
+	</sp:SymmetricBinding>
+	<sp:Wss11>
+		<wsp:Policy>
+			<sp:MustSupportRefEncryptedKey/>
+			<sp:MustSupportRefIssuerSerial/>
+			<sp:MustSupportRefThumbprint/>
+		</wsp:Policy>
+	</sp:Wss11>
+<!-- 	<ns1:OptimizedMimeSerialization
+		xmlns:ns1="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+ -->
+	<wsam:Addressing/>
+</wsp:Policy>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SIAPE_Input_Policy">
+	<sp:EncryptedParts>
+		<sp:Body/>
+	</sp:EncryptedParts>
+	<sp:SignedParts>
+		<sp:Body/>
+		<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="CreateSequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="SequenceAcknowledgement" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+	</sp:SignedParts>
+</wsp:Policy>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SIAPE_Output_Policy">
+	<sp:EncryptedParts>
+		<sp:Body/>
+	</sp:EncryptedParts>
+	<sp:SignedParts>
+		<sp:Body/>
+		<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="CreateSequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="SequenceAcknowledgement" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+	</sp:SignedParts>
+</wsp:Policy>
+</wsdl:definitions>

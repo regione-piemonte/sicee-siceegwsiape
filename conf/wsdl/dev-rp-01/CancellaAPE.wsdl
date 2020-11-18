@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.enea.it/siape" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CancellaAPEService" targetNamespace="http://www.enea.it/siape">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.enea.it/siape" elementFormDefault="qualified" targetNamespace="http://www.enea.it/siape/types" version="1.0">
+
+  <xs:import namespace="http://www.enea.it/siape"/>
+
+  <xs:element name="cancellaAPE">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="requestType" type="ns1:apeAnnullati"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="cancellaAPEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="responseType">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element form="unqualified" name="mCodice" type="xs:int"/>
+              <xs:element form="unqualified" name="mMessaggio" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.enea.it/siape" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.enea.it/siape">
+  <xs:element name="cancellaAPE" type="tns:cancellaAPE"/>
+  <xs:element name="cancellaAPEResponse" type="tns:cancellaAPEResponse"/>
+  <xs:element name="wsAPEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mCodice" type="xs:int"/>
+        <xs:element name="mMessaggio" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="cancellaAPE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apeAnnullati" type="tns:apeAnnullati"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="apeAnnullati">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="compositeKey" type="tns:annullatiKey"/>
+      <xs:element minOccurs="0" name="dataCancellazione" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="motivazione" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="annullatiKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceIstatRegione" type="xs:string"/>
+      <xs:element minOccurs="0" name="idRegionaleApe" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cancellaAPEResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mCodice" type="xs:int"/>
+            <xs:element name="mMessaggio" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="siapeFault">
+    <xs:sequence>
+      <xs:element name="faultCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="faultString" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SiapeException" nillable="true" type="tns:siapeFault"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="cancellaAPE">
+    <wsdl:part element="tns:cancellaAPE" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SiapeException">
+    <wsdl:part element="tns:SiapeException" name="SiapeException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancellaAPEResponse">
+    <wsdl:part element="tns:cancellaAPEResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CancellaAPE">
+    <wsdl:operation name="cancellaAPE">
+      <wsdl:input message="tns:cancellaAPE" name="cancellaAPE">
+    </wsdl:input>
+      <wsdl:output message="tns:cancellaAPEResponse" name="cancellaAPEResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SiapeException" name="SiapeException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CancellaAPEServiceSoapBinding" type="tns:CancellaAPE">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#SiapeBindingPolicy"/>
+    <wsdl:operation name="cancellaAPE">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="cancellaAPE">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Input_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="cancellaAPEResponse">
+        <soap12:body use="literal"/>
+    <wsp:PolicyReference URI="#SIAPE_Output_Policy"/>
+      </wsdl:output>
+      <wsdl:fault name="SiapeException">
+        <soap12:fault name="SiapeException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CancellaAPEService">
+    <wsdl:port binding="tns:CancellaAPEServiceSoapBinding" name="CancellaAPEPort">
+      <soap12:address location="https://pre-siape-services.enea.it:8443/wsape/services/CancellaAPE"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SiapeBindingPolicy">
+	<sp:SignedEncryptedSupportingTokens>
+		<wsp:Policy>
+			<sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+				<wsp:Policy>
+					<sp:WssUsernameToken10/>
+				</wsp:Policy>
+			</sp:UsernameToken>
+		</wsp:Policy>
+	</sp:SignedEncryptedSupportingTokens>
+	<sp:SymmetricBinding>
+		<wsp:Policy>
+			<sp:AlgorithmSuite>
+				<wsp:Policy>
+					<sp:Basic128/>
+				</wsp:Policy>
+			</sp:AlgorithmSuite>
+			<sp:IncludeTimestamp/>
+			<sp:Layout>
+				<wsp:Policy>
+					<sp:Strict/>
+				</wsp:Policy>
+			</sp:Layout>
+			<sp:OnlySignEntireHeadersAndBody/>
+			<sp:ProtectionToken>
+				<wsp:Policy>
+					<sp:X509Token sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never">
+						<wsp:Policy>
+							<sp:RequireIssuerSerialReference/>
+							<sp:WssX509V3Token10/>
+						</wsp:Policy>
+					</sp:X509Token>
+				</wsp:Policy>
+			</sp:ProtectionToken>
+		</wsp:Policy>
+	</sp:SymmetricBinding>
+	<sp:Wss11>
+		<wsp:Policy>
+			<sp:MustSupportRefEncryptedKey/>
+			<sp:MustSupportRefIssuerSerial/>
+			<sp:MustSupportRefThumbprint/>
+		</wsp:Policy>
+	</sp:Wss11>
+<!-- 	<ns1:OptimizedMimeSerialization
+		xmlns:ns1="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+ -->
+	<wsam:Addressing/>
+</wsp:Policy>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SIAPE_Input_Policy">
+	<sp:EncryptedParts>
+		<sp:Body/>
+	</sp:EncryptedParts>
+	<sp:SignedParts>
+		<sp:Body/>
+		<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="CreateSequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="SequenceAcknowledgement" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+	</sp:SignedParts>
+</wsp:Policy>
+    <wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" wsu:Id="SIAPE_Output_Policy">
+	<sp:EncryptedParts>
+		<sp:Body/>
+	</sp:EncryptedParts>
+	<sp:SignedParts>
+		<sp:Body/>
+		<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="AckRequested" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="CreateSequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Sequence" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="SequenceAcknowledgement" Namespace="http://docs.oasis-open.org/ws-rx/wsrm/200702"/>
+		<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+		<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+	</sp:SignedParts>
+</wsp:Policy>
+</wsdl:definitions>

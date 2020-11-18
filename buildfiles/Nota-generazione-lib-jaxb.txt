@@ -1,0 +1,5 @@
+Per eseguire il file buildJAXB.xml occorre utilizzare un ant > 1.7 ed includere le lib seguenti nel classpath:
+jaxb-api-2.2.11.jar
+jaxb-core-2.2.11.jar
+jaxb-impl-2.2.11.jar
+jaxb-xjc-2.2.11.jar
