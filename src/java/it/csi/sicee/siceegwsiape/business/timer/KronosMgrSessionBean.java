@@ -4,13 +4,30 @@
  *******************************************************************************/
 package it.csi.sicee.siceegwsiape.business.timer;
 
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
+
+import javax.ejb.EJB;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+
+import org.apache.log4j.Logger;
+
 import it.csi.sicee.siceegwsiape.business.dto.Mail;
 import it.csi.sicee.siceegwsiape.business.mgr.ISiceegwsiapeTraceManager;
 import it.csi.sicee.siceegwsiape.business.operazioni.SIAPEService;
 import it.csi.sicee.siceegwsiape.integration.ape.cancellazione.AdapterCancellazioneAPEImpl;
 import it.csi.sicee.siceegwsiape.integration.ape.caricamento.AdapterCaricamentoAPEImpl;
 import it.csi.sicee.siceegwsiape.integration.db.SiceeTCertificato;
-import it.csi.sicee.siceegwsiape.integration.db.SiceeTCertificatore;
 import it.csi.sicee.siceegwsiape.integration.db.SiceeTParametriSiape;
 import it.csi.sicee.siceegwsiape.integration.db.SiceeTSiape;
 import it.csi.sicee.siceegwsiape.integration.db.SiceeTSiapeLog;
@@ -18,40 +35,9 @@ import it.csi.sicee.siceegwsiape.jaxb.lib.Ape2015;
 import it.csi.sicee.siceegwsiape.util.APEConstants;
 import it.csi.sicee.siceegwsiape.util.GenericUtil;
 import it.csi.sicee.siceegwsiape.util.MapDto;
-import it.csi.sicee.siceegwsiape.util.enea.siape.utils.ApeXmlParser;
-import it.csi.sicee.siceegwsiape.util.enea.siape.utils.CodeMessage;
-import it.enea.siape.model.persistence.ApeAnnullati.AnnullatiKey;
 import it.csi.sicee.siceegwsiape.util.enea.siape.exception.SiapeException;
-
-import java.io.InputStream;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-
-import org.apache.log4j.Logger;
-import org.xml.sax.SAXParseException;
-
-
-import java.io.Reader;
-import java.io.StringReader;
-import java.math.BigDecimal;
+import it.csi.sicee.siceegwsiape.util.enea.siape.utils.ApeXmlParser;
+import it.enea.siape.model.persistence.ApeAnnullati.AnnullatiKey;
 
 /**
  * Bean per le operazioni schedulate.
@@ -271,7 +257,9 @@ public class KronosMgrSessionBean {
 							  logger.debug("## prima dell'istanza AdapterCaricamentoAPEImpl");
 							  
 							  // reperisco un'istanza dell'adapter per il caricamento
-							  AdapterCaricamentoAPEImpl adapter = AdapterCaricamentoAPEImpl.getInstance();
+							  AdapterCaricamentoAPEImpl adapter = AdapterCaricamentoAPEImpl.getInstance(
+									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_USER),
+									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_PWD));
 							  
 							  logger.debug("## trasformo l'xml in string");
 							  // se xml in formato stringa
@@ -286,9 +274,7 @@ public class KronosMgrSessionBean {
 							  
 							  logger.debug("## prima del richiamo del WS");
 							  // richiamo il WS e gestisco l'esito in base al codice ed al messaggio della response
-							  response = adapter.caricamentoApe(xmlReader,
-									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_USER),
-									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_PWD));
+							  response = adapter.caricamentoApe(xmlReader);
 
 							  logger.debug("## stampo il responde: "+response);
 							  
@@ -350,14 +336,14 @@ public class KronosMgrSessionBean {
 							  logger.debug("[KronosMgrSessionBean::iniziaElaborazione] - prima della creazione dell'adapter (AdapterCancellazioneAPEImpl)");
 
 							  // reperisco un'istanza dell'adapter per la cancellazione
-							  AdapterCancellazioneAPEImpl adapter = AdapterCancellazioneAPEImpl.getInstance();
+							  AdapterCancellazioneAPEImpl adapter = AdapterCancellazioneAPEImpl.getInstance(
+									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_USER),
+									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_PWD));
 
 							  logger.debug("[KronosMgrSessionBean::iniziaElaborazione] - dopo la creazione dell'adapter (AdapterCancellazioneAPEImpl)");
 
 							  // richiamo il WS e gestisco l'esito in base al codice ed al messaggio della response
-							  response = adapter.cancellazioneApe(apeAnnullati,
-									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_USER),
-									  GenericUtil.recuperaValParametro(paramSiape, APEConstants.SIAPE_PWD));
+							  response = adapter.cancellazioneApe(apeAnnullati);
 
 							  //*********************************************************************************************
 

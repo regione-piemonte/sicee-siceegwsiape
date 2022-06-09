@@ -58,20 +58,17 @@ private ISiceegwsiapeTraceManager traceMgr;
 	
 		it.enea.siape.ws.soap.WSAPEResponse response = null;
 		try {
-			
-			AdapterCaricamentoAPEImpl adapter = AdapterCaricamentoAPEImpl.getInstance();
+			// Recupero la user e la pwd del servizio SIAPE
+			String siapeUser = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_USER);
+			String siapePwd = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_PWD);
+
+			AdapterCaricamentoAPEImpl adapter = AdapterCaricamentoAPEImpl.getInstance(siapeUser, siapePwd);
 			
 			Reader reader = new StringReader(xmlProva);
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader xmlReader = inputFactory.createXMLStreamReader(reader);
 
-			// Recupero la user e la pwd del servizio SIAPE
-			String siapeUser = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_USER);
-			String siapePwd = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_PWD);
-
-			response=adapter.caricamentoApe(xmlReader, siapeUser, siapePwd);
-			
-			
+			response = adapter.caricamentoApe(xmlReader);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,13 +84,13 @@ private ISiceegwsiapeTraceManager traceMgr;
 		it.enea.siape.ws.soap.WSAPEResponse response = null;
 		
 		try {
-			AdapterCancellazioneAPEImpl adapter = AdapterCancellazioneAPEImpl.getInstance();
-
 			// Recupero la user e la pwd del servizio SIAPE
 			String siapeUser = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_USER);
 			String siapePwd = traceMgr.findSiceeTParametriSiapeByCodice(APEConstants.SIAPE_PWD);
+
+			AdapterCancellazioneAPEImpl adapter = AdapterCancellazioneAPEImpl.getInstance(siapeUser, siapePwd);
 	
-			response=adapter.cancellazioneApe(apeAnnullati, siapeUser, siapePwd);
+			response = adapter.cancellazioneApe(apeAnnullati);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

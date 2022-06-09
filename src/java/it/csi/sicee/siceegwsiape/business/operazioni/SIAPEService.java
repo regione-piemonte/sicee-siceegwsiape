@@ -8,14 +8,15 @@ import java.util.ArrayList;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 
 import it.csi.sicee.siceegwsiape.business.dto.Mail;
 import it.csi.sicee.siceegwsiape.util.APEConstants;
@@ -100,10 +101,18 @@ public class SIAPEService {
         // Create a mail session
 		try {
         java.util.Properties props = new java.util.Properties();        
-        props.put("mail.smtp.host", factory.getMailHost());
-        props.put("mail.smtp.port", factory.getMailPort());
-        Session session = Session.getDefaultInstance(props, null);
+//        props.put("mail.smtp.host", factory.getMailHost());
+//        props.put("mail.smtp.port", factory.getMailPort());
+//        Session session = Session.getDefaultInstance(props, null);
 
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.host", factory.getMailHost());
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", factory.getMailPort());
+		props.put("mail.smtp.starttls.enable", "true");
+
+		Authenticator auth = new SMTPAuthenticator(factory.getMailUser(), factory.getMailPwd());
+		Session session=Session.getInstance(props,auth);
         
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(mail.getMittente()));
@@ -158,6 +167,20 @@ public class SIAPEService {
                 
 	}
 	
-	
+	private class SMTPAuthenticator extends javax.mail.Authenticator {
+		
+		private String user;
+		private String pwd;
+		
+		public SMTPAuthenticator(String user, String pwd)
+		{
+			this.user = user;
+			this.pwd = pwd;
+		}
+		
+		public PasswordAuthentication getPasswordAuthentication() {
+			return new PasswordAuthentication(user, pwd);
+		}
+	}
 	
 }
